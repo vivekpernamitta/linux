@@ -1,0 +1,18 @@
+make
+gcc user_1.c -o user_1
+gcc user.c -o user
+
+
+sudo insmod dynammic_no.ko
+# cat /prov/devices
+sudo mknod /dev/vivek_test<file> c <major no> <minor no>
+
+
+
+This user application will write some data to kernel. kernel driver will read the data and print it using printk.
+
+NOTE : When user_1 and user_2 are accesses simelataniously . 
+
+user_1 and user_2 are saperate process so both are treated as two saperate  inodes/file so write/read space is same . but file descriptor for both are different.
+i.e., any application that takes to kernel is with own inode structure Ex: 2 user_1 apps accessing has two differnt inodes
+where open, write, read, close space is common use locking mechnisms when ever possble, but data routed form/to user application is different that comes via inode/filep.

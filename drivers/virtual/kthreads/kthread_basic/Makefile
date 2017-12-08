@@ -1,6 +1,6 @@
-obj-m += dynamic_inode.o
+obj-m +=  kthread.o
 
-KERNEL_SRC=/lib/modules/${shell uname -r}/build 
+KERNEL_SRC=/lib/modules/${shell uname -r}/build
 
 all:
 	make -C $(KERNEL_SRC) M=$(PWD) modules

@@ -1,4 +1,5 @@
-obj-m += dynamic_inode.o
+
+obj-m += proc_entry.o
 
 KERNEL_SRC=/lib/modules/${shell uname -r}/build 
 

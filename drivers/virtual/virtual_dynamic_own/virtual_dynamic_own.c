@@ -18,12 +18,26 @@
 
 #define CHAR_DRIVER_NAME "scull"
 #define MINOR_ADDRESS 1
-#define COUNT 1
+//#define COUNT 1
 
+// commentas to check manual/dynamic inode
+#if INODE_MANUAL
+#define S_MAJOR
+#else 
+#define S_MAJOR 0 
+#endif
 
+#define S_MINOR 4
+#define S_QUANTAM 40
+#define S_QSET 10
+//#define S_MINOR 4
 
-unsigned int scull_major=0;
-unsigned int scull_minor;
+unsigned int scull_major = S_MAJOR;
+unsigned int scull_minor = S_MINOR;
+unsigned int scull_nr_devs = S_MINOR;
+
+unsigned int scull_quantum = S_QUANTAM;
+unsigned int scull_qset = S_QSET;
 struct file *filp
 
 
@@ -40,7 +54,7 @@ struct scull_dev {
 	struct semaphore sem; /* mutual exclusion semaphore */
 	struct cdev cdev; /* Char device structure */
 
-};
+}scull_devices[4];
 
 
 static int scull_open(struct inode *inode, struct file *filep) {
@@ -73,16 +87,16 @@ static void scull_setup_cdev(struct scull_dev *dev, int index)
 	int err, devno,result;
 	if (scull_major)        {
 		devno = MKDEV (scull_major, scull_minor);
-		result = register_chrdev_region( &devno, COUNT, CHAR_DRIVER_NAME);
+		result = register_chrdev_region( &devno, scull_nr_devs, CHAR_DRIVER_NAME);
 	}
 	else    {
-		result = alloc_chrdev_region(&devno, scull_minor, COUNT, CHAR_DRIVER_NAME);
+		result = alloc_chrdev_region(&devno, index , scull_nr_devs, CHAR_DRIVER_NAME);
 		scull_major = MAJOR(dev);
 	}
 
 
 	if (result < 0) {
-		printk (KERN_WARNING " scull: can't get major %d \n", scull_major);
+		printk (KERN_ERR " scull: can't get major %d \n", scull_major);
 		return result;
 	}
 	else
@@ -102,11 +116,16 @@ static void scull_setup_cdev(struct scull_dev *dev, int index)
 
 static void   __initdata init_function(void){
 
-	struct scull_dev *dev;
+	
+	unsigned short int i;
 
-	scull_setup_cdev(&dev, COUNT)
-
-		struct cdev *my_cdev = cdev_alloc( );	
+	for (i = 0; i < scull_nr_devs; i++) {
+		scull_devices[i].quantum = scull_quantum;
+		scull_devices[i].qset = scull_qset;
+		init_MUTEX(&scull_devices[i].sem);
+		scull_setup_cdev(&scull_devices[i], i)
+	}
+	struct cdev *my_cdev = cdev_alloc( );	
 	my_cdev->ops = &my_fops;
 
 	// you should initialize the structure that you have already allocated
@@ -146,7 +165,7 @@ MODULE_DESCRIPTION(" vitual char driver");
 
 
 
-}
+
 
 
 

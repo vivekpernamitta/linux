@@ -1,0 +1,1 @@
+cmd_/home/vivek/experiment/linux/drivers/virtual/hello_world/hello_param.ko := ld -r -m elf_i386 -T ./scripts/module-common.lds --build-id  -o /home/vivek/experiment/linux/drivers/virtual/hello_world/hello_param.ko /home/vivek/experiment/linux/drivers/virtual/hello_world/hello_param.o /home/vivek/experiment/linux/drivers/virtual/hello_world/hello_param.mod.o
