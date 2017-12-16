@@ -1,21 +1,27 @@
-make
-gcc user_1.c -o user_1
-gcc user.c -o user
 
 
-sudo insmod dynammic_no.ko
-# cat /prov/devices
-sudo mknod /dev/vivek_test<file> c <major no> <minor no>
+#This program to check to access kernel space with user_1 and user_2
+Usage:
+	
+	make
+	gcc user_1.c -o user_1
+	gcc user_2.c -o user_2
+
+
+	sudo insmod dynammic_no.ko
+	# cat /prov/devices
+	sudo mknod /dev/vivek_test<file> c <major no> <minor no>
 
 
 
 This user application will write some data to kernel. kernel driver will read the data and print it using printk.
 
-NOTE : When user_1 and user_2 are accesses simelataniously . 
+NOTE : 
+	When user_1 and user_2 are accesses simelataniously . 
 
-user_1 and user_2 are saperate process so both have two saperates stacks in "kernel" and "user space" and both  file descriptor for both are different.
+	user_1 and user_2 are saperate process so both have two saperates stacks in "kernel" and "user space" and both  file descriptor for both are different.
 
-dump stack is preinted in kernel. 
+	dump stack is preinted in kernel. 
 
-where open, write, read, close space is common use locking mechnisms when ever possble for all "global variables", for " local varibale ' are created for their own stack.
+	where open, write, read, close space is common use locking mechnisms when ever possble for all "global variables", for " local varibale ' are created for their own stack.
 

@@ -1,0 +1,30 @@
+
+
+Simple completions usage
+
+Usage:
+	make
+	sudo insmod dynammic_no.ko
+	# cat /prov/devices
+	sudo mknod /dev/vivek_test<file> c <major no> <minor no>
+
+
+
+This user application will write some data to kernel. kernel driver will read the data and print it using printk.
+
+
+
+
+
+NOTE  : 
+     *  1. Only one process can open file  at a time 1000ms  , remaing process will not get access here
+	*/
+	Best use for synchronous use
+
+        the use case is when user_1 opens device it gets blocked in
+        "wait_for_completion" function untill 1000ms
+        After 1000ms user_1 will be able to open file
+
+        */
+
+	2. dump stack is preinted in kernel. 

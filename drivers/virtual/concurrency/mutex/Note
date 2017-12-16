@@ -1,0 +1,43 @@
+
+//Simple MUTEX usage
+Usage:
+	make
+	gcc user_1.c -o user_1
+	gcc user_2.c -o user_2
+
+
+	sudo insmod dynammic_no.ko
+	# cat /prov/devices
+	sudo mknod /dev/vivek_test<file> c <major no> <minor no>
+
+
+
+This user application will write some data to kernel. kernel driver will read the data and print it using printk.
+
+
+// mutex usage
+This has mutex function	
+	struct mutex mutex_vdev;
+	mutex_init(&mutex_vdev);
+	
+	mutex_locked(&mutex_vdev);
+		....
+		(critical secton)
+		....
+	mutex_unlocked(&mutex_vdev);
+
+
+	There are many more functions with ,mutex usage
+	
+		mutex_lock_interruptible
+		mutex_lock_killable
+		mutex_trylock
+		mutex_trylock_recursive
+		mutex_is_locked
+
+
+NOTE  : 
+     *  1. Only one process can open file  at a time (i.e remianing has to wait)  , remaing process which is trying to access need to wait until old process release	
+		lock is creted while in opening function 
+		lock is removed in closing function
+	2. dump stack is preinted in kernel. 

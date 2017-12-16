@@ -34,6 +34,7 @@
 /*
 	structure our constants based on majic number
 */
+/* Please use a different 8-bit number in your code */
 #define		 VIVEK_MAGIC	0x34
 
 
