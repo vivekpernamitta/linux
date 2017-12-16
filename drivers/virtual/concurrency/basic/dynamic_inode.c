@@ -49,6 +49,7 @@ static int char_dev_open( struct inode *inode, struct file *file)
 //				return EBUSY;
 
 	}
+	dump_stack();
 	printk(KERN_INFO "\t DEVICE OPEN");
 	inuse=1;
 	return SUCCESS;

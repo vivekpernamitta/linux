@@ -38,10 +38,9 @@ int main()
 	for(i=0;i<4;i++){
 		
 		ret = write( fd, "__vivek__", 12);
+		sleep(2);
 		ret = write( fd, mybuf, 4000);
 	}
-	while(1)
-	sleep(2);
 	close (fd);
 
 }

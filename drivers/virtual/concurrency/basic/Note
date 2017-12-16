@@ -13,6 +13,9 @@ This user application will write some data to kernel. kernel driver will read th
 
 NOTE : When user_1 and user_2 are accesses simelataniously . 
 
-user_1 and user_2 are saperate process so both are treated as two saperate  inodes/file so write/read space is same . but file descriptor for both are different.
-i.e., any application that takes to kernel is with own inode structure Ex: 2 user_1 apps accessing has two differnt inodes
-where open, write, read, close space is common use locking mechnisms when ever possble, but data routed form/to user application is different that comes via inode/filep.
+user_1 and user_2 are saperate process so both have two saperates stacks in "kernel" and "user space" and both  file descriptor for both are different.
+
+dump stack is preinted in kernel. 
+
+where open, write, read, close space is common use locking mechnisms when ever possble for all "global variables", for " local varibale ' are created for their own stack.
+
